@@ -5,3 +5,5 @@ Copies of the package fractals.mac and rtest_fractals.mac are shared here as ref
 Also is shared a copy of the work of Krzysztof Leśniak and Nina Snigireva that can be found here (http://repozytorium.umk.pl/handle/item/6317); the file is named Sym5disjunctiveChaosGame_2020-06-02.wxm .
 Some modifications will be made to Sym5disjunctiveChaosGame_2020-06-02.wxm for better understanding.
 I hope this could be clarifying about further implementations of the IFS approach to fractals in Maxima. 
+
+The file MandelbrotKreuter.wxm is added for reference about how generate fractals.
