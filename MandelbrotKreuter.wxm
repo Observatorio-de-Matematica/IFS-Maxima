@@ -1,0 +1,32 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+/* Date: Fri May 1 00:14:49 WEST 2009 */
+/* Contributor: Maximilian Kreuter */
+/* Description: Mandelbrot set implementation */
+mandel(reMin, reMax, imMin, imMax, resolution, iterations):=block(
+    [reZ, imZ, absZ, i, pixels, reTemp],
+    pixels:[[0,0]],
+    for x:reMin step resolution thru reMax do [
+        for y:imMin step resolution thru imMax do [
+            reZ:0,
+            imZ:0,
+            absZ:0,
+            for i:1 step 1 thru iterations while absZ < 4 do [
+                reTemp:reZ^2 - imZ^2 + x,
+                imZ:2*reZ*imZ + y,
+                reZ:reTemp,
+                absZ:reZ^2+imZ^2
+            ],
+            if absZ < 4 then pixels:append(pixels,[[x,y]])
+        ]
+    ],
+    return(pixels)
+)$
+plot2d([discrete, mandel(-2,0.5,-1,1, 0.02, 16)],[style,[points,0.2,1,1]]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
