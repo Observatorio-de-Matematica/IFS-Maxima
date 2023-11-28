@@ -7,3 +7,4 @@ Some modifications will be made to Sym5disjunctiveChaosGame_2020-06-02.wxm for b
 I hope this could be clarifying about further implementations of the IFS approach to fractals in Maxima. 
 
 The file MandelbrotKreuter.wxm is added for reference about how generate fractals.
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/MandelbrotKreuter.png)
