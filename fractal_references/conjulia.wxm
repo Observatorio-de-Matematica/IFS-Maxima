@@ -1,0 +1,73 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+/*
+Ejemplo de uso:
+m: conjulia(-0.4+%i*0.6,-1.5-1.5*%i,1.5+1.5*%i,200,200) $
+draw2d(image(m, -1.5,-1.5,3,3)) $
+*/
+conjulia(c,p1,p2,nr,ni):=
+   block([rmin   : float(realpart(p1)),
+          rmax   : float(realpart(p2)),
+          imin   : float(imagpart(p1)),
+          imax   : float(imagpart(p2)),
+          maxiter: 50,   /* num max de iteraciones   */
+          maxabs : 100,  /* maximo valor abs para convergencia */
+          dr,di,jcz, absjcz],
+      dr: (rmax-rmin)/nr,
+      di: (imax-imin)/ni,
+      apply(matrix,
+            makelist(
+               makelist(
+                  (absjcz: abs(jcz: (rmin+i*dr) + %i*(imax-j*di)),
+                   for n:1 while n < maxiter and absjcz < maxabs do
+                      absjcz: abs(jcz: expand(jcz^2 + c)),
+                   absjcz),
+                  i,0,nr-1),
+               j,0,ni-1)) )$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Ejemplo de uso:
+    m: conjulia2(-0.4+%i*0.6,-1.5-1.5*%i,1.5+1.5*%i,200,200) $
+    draw2d(image(m, -1.5,-1.5,3,3)) $
+    Este algoritmo supera en rapidez a conjulia en un factor de 60. */
+eval_string_lisp("(defun $conjulia2 (c p1 p2 nr ni)
+  ; ojo: aqui deberian colocarse controles sobre los parametros
+  ; por simplicidad, no se incluyen.
+  (let* ((rmin ($float ($realpart p1)))
+         (rmax ($float ($realpart p2)))
+         (imin ($float ($imagpart p1)))
+         (imax ($float ($imagpart p2)))
+         (dr (/ (- rmax rmin) nr))
+         (di (/ (- imax imin) ni))
+         (maxiter 50)
+         (maxabs 100)
+         (c (complex ($float ($realpart c))
+                     ($float ($imagpart c))))
+         jcz absjcz)
+    (cons '($matrix)  ; construye el onjeto matriz
+          (loop for j below ni
+            collect (cons '(mlist)  ; construye objeto lista, filas de matrices
+                          (loop for i below nr
+                            do (setf jcz (complex (+ rmin (* i dr))
+                                                  (- imax (* j di))))
+                               (setf absjcz (abs jcz))
+                               (loop for n from 1 to maxiter
+                                 do (setf jcz (+ (* jcz jcz) c))
+                                    (setf absjcz (abs jcz))
+                                    (when (>= absjcz maxabs) (return)))
+                            collect absjcz))))))");
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+m: conjulia2(-0.4+%i*0.6,-1.5-1.5*%i,1.5+1.5*%i,200,200) $
+wxdraw2d(image(m, -1.5,-1.5,3,3)) $
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
