@@ -10,5 +10,8 @@ I hope this could be clarifying about further implementations of the IFS approac
 
 Some code and images about Kronecker based fractals are shared.
 
-The file MandelbrotKreuter.wxm is added for reference about how generate fractals.
-[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/MandelbrotKreuter.png)
+For references about fractals see the corresponding directory
+
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal references/MandelbrotKreuter.png)
+
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/conjulia.png)
