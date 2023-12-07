@@ -12,6 +12,6 @@ Some code and images about Kronecker based fractals are shared.
 
 For references about fractals see the corresponding directory
 
-[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal references/MandelbrotKreuter.png)
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/MandelbrotKreuter.png)
 
 [![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/conjulia.png)
