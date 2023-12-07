@@ -12,6 +12,16 @@ Some code and images about Kronecker based fractals are shared.
 
 For references about fractals see the corresponding directory
 
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/Kronecker%20product%20based%20fractals/Cantor.png)
+
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/Kronecker%20product%20based%20fractals/Sierpinski1.png)
+
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/Kronecker%20product%20based%20fractals/Sierpinski2.png)
+
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/Kronecker%20product%20based%20fractals/Vicsek.png)
+
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/Kronecker%20product%20based%20fractals/Hexaflake.png)
+
 [![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/MandelbrotKreuter.png)
 
 [![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/conjulia.png)
