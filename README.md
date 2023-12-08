@@ -18,7 +18,9 @@ For references about fractals see the corresponding directory
 
 [![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/Kronecker%20product%20based%20fractals/Sierpinski2.png)
 
-[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/Kronecker%20product%20based%20fractals/Vicsek.png)
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/Kronecker%20product%20based%20fractals/Vicsek1.png)
+
+[![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/Kronecker%20product%20based%20fractals/Vicsek2.png)
 
 [![screen cap](https://github.com/Observatorio-de-Matematica/IFS-Maxima/blob/main/fractal_references/Kronecker%20product%20based%20fractals/Hexaflake.png)
 
