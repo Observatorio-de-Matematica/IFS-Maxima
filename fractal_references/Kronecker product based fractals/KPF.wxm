@@ -63,25 +63,37 @@ block(pow_kron(C,4),wxdraw2d(image(%%,0,0,30,30)))$
 
 /* [wxMaxima: input   start ] */
 /* Examples (images are shown in format png)*/
-D:matrix([1,0,1],[0,1,0],[1,0,1])$
+D:matrix([1,1,1],[1,0,1],[1,1,1])$
 /* [wxMaxima: input   end   ] */
 
 
 /* [wxMaxima: input   start ] */
-/* Vicsek fractal (four copies of quadratic snowflake glued around a center) */
-block(pow_kron(D,3),wxdraw2d(image(%%,0,0,30,30)))$
+/* Sierpinski carpet */
+block(pow_kron(D,4),wxdraw2d(image(%%,0,0,30,30)))$
 /* [wxMaxima: input   end   ] */
 
 
 /* [wxMaxima: input   start ] */
 /* Examples (images are shown in format png)*/
-E:matrix([1,1,0],[1,1,1],[0,1,1])$
+E:matrix([1,0,1],[0,1,0],[1,0,1])$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Vicsek fractal (four copies of quadratic snowflake glued around a center) */
+block(pow_kron(E,3),wxdraw2d(image(%%,0,0,30,30)))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/* Examples (images are shown in format png)*/
+F:matrix([1,1,0],[1,1,1],[0,1,1])$
 /* [wxMaxima: input   end   ] */
 
 
 /* [wxMaxima: input   start ] */
 /* Hexaflake */
-block(pow_kron(E,3),wxdraw2d(image(%%,0,0,30,30)))$
+block(pow_kron(F,3),wxdraw2d(image(%%,0,0,30,30)))$
 /* [wxMaxima: input   end   ] */
 
 
