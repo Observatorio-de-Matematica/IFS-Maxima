@@ -1,0 +1,427 @@
+3.1. NÃºmeros
+============
+
+Problema 1
+----------
+x: ((3^7/(4+3/5))^-1+7/9)^3 ;
+float(x) ;
+
+Problema 2
+----------
+fpprec: 5000 $
+bfloat(%pi) ;
+
+Problema 3
+----------
+z: 7/3-4/5*%i;
+expand(sqrt(z*conjugate(z)));
+abs(z);
+
+
+
+3.2. Listas
+===========
+
+Problema 1
+----------
+u: [7, 2, 6, 9];
+map(log,u);
+
+Problema 2
+----------
+d: [5,2,9,3,1,6,8,1,9] ;
+p: apply("+",d) / length(d) ;
+sqrt(apply("+", ((d-p)^2)));
+
+Problema 3
+----------
+a: makelist([x*0.1, sin(x*0.1), exp(x*0.1)], x, 0, 10);
+b: makelist([cos(x), log(x), x^2-x], x, [1.2, 1.5, 1.6, 1.7, 1.9]);
+t: append(a,b);
+map(lambda([z],[first(z), second(z)]),t);
+map(lambda([z],[first(z), third(z)]),t);
+
+
+
+3.3. Transformaciones algebraicas
+=================================
+
+Problema 1
+----------
+loga(a,x) := log(x)/log(a) ;
+float(loga(sqrt(3), 15));
+
+Problema 2
+----------
+trigsimp((1+cos(x))/sin(x) - sin(x)/(1-cos(x))) ;
+trigsimp(sec(x)^2-cos(x)^2-tan(x)^2-sin(x)^2) ;
+
+Problema 2
+----------
+trigexpand(1-2*cos(2*x)-4*sin(x)^2+1) ;
+trigsimp(%) ;
+
+
+
+3.4. ResoluciÃ³n de ecuaciones
+=============================
+
+Problema 1
+----------
+solve(t^2-1/t=1) ;
+last(%); /* complejos no valen */
+/* otra posibilidad: */
+ev(algsys([t^2-1/t=1],[t]), realonly=true) ;
+
+Problema 2
+----------
+solve([Nt = N0 * exp(lam*t)+v/t*(exp(lam*t)-1)],[lam]) ;
+subst([N0=10^6, Nt=1564000, t=1, v=435000],%);
+float(%);
+
+Problema 3
+----------
+/*
+En los mÃ©todos numÃ©ricos, primero damos valores a
+las variables.
+*/
+load(mnewton)$
+R: 2*10^5$ d: 300$ k: 0.25$
+mnewton([F+2*log(k/(3.7*d)+2.51*F/R)/log(10)],[F],[1]);
+
+
+
+3.5. LÃ­mites, derivadas e integrales
+====================================
+
+Problema 1
+----------
+v: (37*t^3-42*t)/(sqrt(15*t^6+1)+2*t^3) ;
+subst(t=2, v) ;
+subst(t=2, a: diff(v,t)) ;
+limit(v,t,inf) ;
+limit(a,t,inf) ;
+
+Problema 2
+----------
+taylor(x^(1/3)/(x+2)+3*exp(x^2),x,1,1) ;
+expand(%) ;
+
+Problema 3
+----------
+expand(taylor(x^(1/3)/(x+2)+3*exp(x^2),x,1,2))
+
+Problema 4
+----------
+/*
+Primero intentamos si se puede resolver simbÃ³licamente
+*/
+integrate(1/log(t),t,2,10^7) ;
+quad_qag(1/log(t),t,2,10^7,3) ;
+
+
+
+3.6. Matrices
+=============
+
+Problema 1
+----------
+m: matrix([3,2,-8/5,x],[-3/5,x,9,1],[6,3,1/9,-2],[y,2,3,-4]) $
+determinant(m)=0  ;
+expand(%) ;
+
+Problema 2
+----------
+a: matrix([4,-7,3],[1,8,-5],[7,1,0]) $
+b: matrix([1,2,3],[3,5,6],[-8,8,9]) $
+c: matrix([-1,2,-3],[4,-u,6],[-7,8,-9]) $
+invert(a).c.invert(b) ;
+expand(%) ;
+
+Problema 3
+----------
+a: matrix([2,-1,1,0],[-1,1,0,-1],[-1,0,1,-1],[0,-1,-1,2]) $
+a.matrix([2],[5],[6],[8]) ;
+a.matrix([2,5,6,8]) ;  /* variante 1 */
+a.[2,5,6,8] ;  /* variante 2 */
+n: nullspace(a) ;
+/*
+A continuaciÃ³n se hace uso de la variante anterior
+para aÃ±adir el nuevo vector a la matriz y calcular
+el rango.
+*/
+rank(addcol(first(args(n)),[0,3,3,0])) ;
+columnspace(a) ;
+apply(addcol,args(%)) ;
+
+
+
+3.7. Vectores y campos
+======================
+
+Problema 1
+----------
+a:  [exp(t)*sin(t),exp(t)*cos(t)] ;
+ap: diff(a,t) ;
+modulo(v):= sqrt(apply("+",v^2)) $
+a.ap/(modulo(a)*modulo(ap));  /* coseno del Ã¡ngulo entre vectores */
+trigsimp(%) ;  /* % es el resultado anterior */
+
+Problemas 2
+-----------
+load(vect) $
+/* definimos unas cuantas funciones */
+milaplaciano(v):= ev(express(laplacian(v)), diff) $
+midivergencia(v):= ev(express(div(v)), diff) $
+mirotacional(v):= ev(express(curl(v)), diff) $
+migradiente(e):= ev(express(grad(e)), diff) $
+/* resolvemos problema 2 */
+midivergencia([x*exp(y), -sin(x*y), z]) ;
+mirotacional([y^2*z, z^2*x, x^2*y]) ;
+
+Problemas 3
+---------------
+/* siguen activas definiciones problema 2 */
+depends(fi,[x,y,z]) $
+mirotacional(migradiente(fi)) ;
+F:[f1, f2, f3] $
+depends(F,[x,y,z]) $
+mirotacional(mirotacional(F)) = migradiente(midivergencia(F))-milaplaciano(F);
+is(%);  /* vÃ©ase la secciÃ³n sobre programaciÃ³n */
+
+
+
+3.8. GrÃ¡ficos
+=============
+
+Problema 1
+----------
+load(draw) $
+f: x^3-2*x^2+5 $
+draw2d(explicit(f,x,-2,5),
+       explicit(taylor(f,x,3,1),x,-2,5))$
+draw2d(explicit(f,x,-2,5),
+       explicit(taylor(f,x,3,1),x,-2,5),
+       explicit(taylor(f,x,3,2),x,-2,5))$
+draw2d(explicit(f,x,-2,5),
+       explicit(taylor(f,x,3,1),x,-2,5),
+       explicit(taylor(f,x,3,2),x,-2,5),
+       point_size = 3,
+       point_type = filled_circle,
+       points([[3,subst(x=3,f)]]))$
+draw2d(line_width = 2,
+       key = "Funcion",
+       explicit(f,x,-2,5),
+       line_width = 1,
+       color = red,
+       key = "Aproximacion lineal",
+       explicit(taylor(f,x,3,1),x,-2,5),
+       color = blue,
+       key = "Aproximacion cuadratica",
+       explicit(taylor(f,x,3,2),x,-2,5),
+       color = black,
+       key = "",
+       point_size = 3,
+       point_type = filled_circle,
+       points([[3,subst(x=3,f)]]),
+       xaxis = true,
+       yaxis = true,
+       zaxis = true,
+       title = "Aproximaciones polinomiales") $
+
+Problema 2
+----------
+load(draw) $
+draw3d(parametric(t*cos(t),t*sin(t),t,t,0,1)) $
+draw3d(parametric(t*cos(t),t*sin(t),t,t,0,3)) $
+draw3d(parametric(t*cos(t),t*sin(t),t,t,0,5)) $
+for u:0 thru 10 step 0.1 do
+  draw3d(parametric(t*cos(t),t*sin(t),t,t,0,u))$
+for u:0 thru 10 step 0.1 do
+  draw3d(parametric(t*cos(t),t*sin(t),t,t,0,u),
+         xrange=[-8,8],
+         yrange=[-8,8],
+         zrange=[0,11])$
+for u:0 thru 10 step 0.1 do
+  draw3d(parametric(t*cos(t),t*sin(t),t,t,0,u),
+         xrange=[-8,8],
+         yrange=[-8,8],
+         zrange=[0,11],
+         rot_vertical=u*18,
+         rot_horizontal = u*10)$
+
+
+
+3.9. Ecuaciones diferenciales
+=============================
+
+Problema 1
+----------
+sol: ode2('diff(y,x) = (x^2+1)*(1-y^2)/(x*y), y, x) ;
+sol: ic1(sol,x=2,y=2) ;
+load(draw) ;
+draw2d(implicit(sol,x,-3,3,y,-3,3)) ;
+
+Problema 2
+----------
+atvalue(x(t),t=0,1) ;
+atvalue('diff(x(t),t),t=0,0) ;
+atvalue('diff(x(t),t,2),t=0,0) ;
+sol: desolve('diff(x(t),t,3)+4*'diff(x(t),t,2)-5*x(t)=0, x(t)) ;
+limit(sol,t,inf) ;
+
+Problema 3
+----------
+load(draw) ;
+s: 10 $
+r: 126.52 $
+b: 8/3 $
+sol: rk([s*(y-x),
+         r*x-y-x*z,
+         x*y-b*z],
+        [x,y,z],
+        [-7.69,-15.61,90.39],
+        [t,0,10,0.005]) ;
+draw3d(points_joined = true,
+       point_type    = dot,
+       points(sol)) ;
+
+
+
+3.10. Probabilidades y anÃ¡lisis de datos
+========================================
+
+Problema 1
+----------
+load(distrib);
+m: random_normal(0,1,100);
+load(descriptive);
+mean(m);
+std(m);
+histogram(m, nclasses=5);
+
+Problema 2
+----------
+load(lsquares);
+dat: matrix([1,4.97], [2,4.85], [4,6.80], [6,9.04], [7,12.48], [9,16.40]);
+ab: lsquares_estimates (dat,[x,y],y=a*b^x,[a,b]);
+fun: subst(first(ab),a*b^x);
+subst(x=[3,5,8],fun);
+load(draw);
+draw2d(points(dat),explicit(fun,x,0,10));
+
+
+
+3.11. InterpolaciÃ³n numÃ©rica
+============================
+
+Problema 1
+----------
+load(interpol);
+dat: [[0,0],[10,227.04],[15,362.78],[20,517.35],[22.5,602.97],[30,901.67]];
+v: lagrange(dat, varname=t);
+a: diff(v,t);  /* aceleraciÃ³n */
+subst(t=17.5, a);
+e: integrate(v, t); /* espacio recorrido */
+subst(t=17.5, e);
+
+Problema 2
+----------
+x: [1.08,-0.83,-1.98,-1.31,0.57]$
+y: [2.61,2.82,0.44,-2.35,-2.97]$
+z: [2.50,5.00,7.50,10.00,12.50]$
+c1: cspline(x, varname=t) ;
+c2: cspline(y, varname=t) ;
+c3: cspline(z, varname=t) ;
+load(draw) $
+draw3d(point_size = 3,
+       points(x,y,z),
+       parametric(c1,c2,c3,t,0,6)) $
+
+
+
+4.1. ProgramaciÃ³n: Nivel Maxima
+===============================
+
+Problema 1
+----------
+solucion(lista,numsol) := rhs(lista[numsol]) $
+
+Problema 2
+----------
+solucion(lista,numsol) := 
+  (if not listp(lista)
+     then error("Primer parÃ¡metro debe ser una lista."),
+   if not every(lambda([z], not atom(z) and op(z) = "="), lista)
+     then error("Los elementos de la lista deben ser igualdades."),
+   if not integerp(numsol) or numsol > length(lista)
+     then error(numsol, " es mayor que el nÃºmero de soluciones."),
+   /* tests superados */
+   rhs(lista[numsol]) ) $
+
+Problema 3
+----------
+/*
+Ejemplo de uso:
+m: conjulia(-0.4+%i*0.6,-1.5-1.5*%i,1.5+1.5*%i,200,200) $
+draw2d(image(m, -1.5,-1.5,3,3)) $
+*/
+conjulia(c,p1,p2,nr,ni):=
+   block([rmin   : float(realpart(p1)),
+          rmax   : float(realpart(p2)),
+          imin   : float(imagpart(p1)),
+          imax   : float(imagpart(p2)),
+          maxiter: 50,   /* num max de iteraciones   */
+          maxabs : 100,  /* maximo valor abs para convergencia */
+          dr,di,jcz, absjcz],
+      dr: (rmax-rmin)/nr,
+      di: (imax-imin)/ni,
+      apply(matrix,
+            makelist(
+               makelist(
+                  (absjcz: abs(jcz: (rmin+i*dr) + %i*(imax-j*di)),
+                   for n:1 while n < maxiter and absjcz < maxabs do
+                      absjcz: abs(jcz: expand(jcz^2 + c)),
+                   absjcz),
+                  i,0,nr-1),
+               j,0,ni-1)) )$
+
+
+
+4.2. ProgramaciÃ³n: Nivel Lisp
+=============================
+
+Problema 1
+----------
+;; Ejemplo de uso:
+;; m: conjulia2(-0.4+%i*0.6,-1.5-1.5*%i,1.5+1.5*%i,200,200) $
+;; draw2d(image(m, -1.5,-1.5,3,3)) $
+;;
+;; Este algoritmo supera en rapidez a conjulia en un factor de 60.
+;;
+(defun $conjulia2 (c p1 p2 nr ni)
+  ; ojo: aqui deberian colocarse controles sobre los parametros
+  ; por simplicidad, no se incluyen.
+  (let* ((rmin ($float ($realpart p1)))
+         (rmax ($float ($realpart p2)))
+         (imin ($float ($imagpart p1)))
+         (imax ($float ($imagpart p2)))
+         (dr (/ (- rmax rmin) nr))
+         (di (/ (- imax imin) ni))
+         (maxiter 50)
+         (maxabs 100)
+         (c (complex ($float ($realpart c))
+                     ($float ($imagpart c))))
+         jcz absjcz)
+    (cons '($matrix)  ; construye el onjeto matriz
+          (loop for j below ni
+            collect (cons '(mlist)  ; construye objeto lista, filas de matrices
+                          (loop for i below nr
+                            do (setf jcz (complex (+ rmin (* i dr))
+                                                  (- imax (* j di))))
+                               (setf absjcz (abs jcz))
+                               (loop for n from 1 to maxiter
+                                 do (setf jcz (+ (* jcz jcz) c))
+                                    (setf absjcz (abs jcz))
+                                    (when (>= absjcz maxabs) (return)))
+                            collect absjcz))))))
